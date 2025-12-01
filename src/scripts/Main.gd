@@ -2,6 +2,8 @@ extends Node
 
 @export var dvd_scene: PackedScene
 
+var game_score := 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -16,6 +18,9 @@ func game_over():
 func new_game():
 	$Player.start($SpawnPoint.position)
 	$StartTimer.start()
+
+func restart_game():
+	get_tree().reload_current_scene()
 
 
 func _on_dvd_timer_timeout():
@@ -42,6 +47,15 @@ func _on_dvd_timer_timeout():
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
+	game_score += 1
 
 func _on_start_timer_timeout():
-	$DVDTimer.start()
+	%DVDTimer.start()
+
+
+func _on_button_pressed():
+	$DVDTimer.stop()
+	restart_game()
+	
+func _on_control_visibility_changed():
+	%Score.text = "Score: " + str(game_score)

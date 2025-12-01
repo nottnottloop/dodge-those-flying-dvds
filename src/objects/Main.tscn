@@ -1,14 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqvvu4yt0v3ly"]
+[gd_scene load_steps=9 format=3 uid="uid://dqvvu4yt0v3ly"]
 
 [ext_resource type="PackedScene" uid="uid://cmhq57472hx8u" path="res://src/objects/Player.tscn" id="1_8lwlj"]
-[ext_resource type="Script" path="res://src/scripts/Main.gd" id="1_y8dhx"]
+[ext_resource type="Script" uid="uid://dxjiacmxsftd6" path="res://src/scripts/Main.gd" id="1_y8dhx"]
 [ext_resource type="PackedScene" uid="uid://djpcfp5nwfa3m" path="res://src/objects/DVD.tscn" id="2_nlmyf"]
+[ext_resource type="Texture2D" uid="uid://cqexoxvgyhjko" path="res://assets/sprites/fancy_art/DVD.png" id="5_fdq6y"]
+
+[sub_resource type="GDScript" id="GDScript_q4unm"]
+script/source = "extends Timer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
 
 [sub_resource type="Curve2D" id="Curve2D_4joly"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1920, 0, 0, 0, 0, 0, 1920, 1080, 0, 0, 0, 0, 0, 1080, 0, 0, 0, 0, 0, 0)
 }
 point_count = 5
+
+[sub_resource type="GDScript" id="GDScript_5qkix"]
+script/source = "extends CanvasLayer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_242ig"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_y8dhx")
@@ -19,7 +52,9 @@ position = Vector2(920, 540)
 speed = 500
 
 [node name="DVDTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 0.5
+script = SubResource("GDScript_q4unm")
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
 position = Vector2(920, 540)
@@ -40,5 +75,54 @@ offset_right = 1948.0
 offset_bottom = 1129.0
 color = Color(0.929412, 0.929412, 0.929412, 1)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = SubResource("GDScript_5qkix")
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 269.0
+offset_right = 1370.0
+offset_bottom = 808.0
+texture = ExtResource("5_fdq6y")
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 819.0
+offset_top = 370.0
+offset_right = 1171.0
+offset_bottom = 415.0
+text = "You're absolutely dead"
+label_settings = SubResource("LabelSettings_242ig")
+
+[node name="Score" type="Label" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 805.0
+offset_top = 632.0
+offset_right = 1157.0
+offset_bottom = 677.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_242ig")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 897.0
+offset_top = 680.0
+offset_right = 1066.0
+offset_bottom = 742.0
+text = "Restart"
+
 [connection signal="timeout" from="DVDTimer" to="." method="_on_dvd_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="visibility_changed" from="CanvasLayer/Control" to="." method="_on_control_visibility_changed"]
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_button_pressed"]

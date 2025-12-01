@@ -1,6 +1,7 @@
-[gd_resource type="SpriteFrames" load_steps=43 format=3 uid="uid://b3v6a20iqwd24"]
+[gd_resource type="SpriteFrames" load_steps=44 format=3 uid="uid://b3v6a20iqwd24"]
 
 [ext_resource type="Texture2D" uid="uid://5egt1fndwqmm" path="res://assets/sprites/fancy_art/player_frames/player_down/Player_Down_1.png" id="1_b02ic"]
+[ext_resource type="Texture2D" uid="uid://8vjyg86t7w61" path="res://assets/sprites/programmer_art/Player_Down.png" id="1_n5xv5"]
 [ext_resource type="Texture2D" uid="uid://dd4brklq2h113" path="res://assets/sprites/fancy_art/player_frames/player_down/Player_Down_2.png" id="2_n1fmp"]
 [ext_resource type="Texture2D" uid="uid://ctsa14qwqsaye" path="res://assets/sprites/fancy_art/player_frames/player_down/Player_Down_3.png" id="3_t2t8o"]
 [ext_resource type="Texture2D" uid="uid://dnfiq3fsg3k4w" path="res://assets/sprites/fancy_art/player_frames/player_down/Player_Down_4.png" id="4_p4g5o"]
@@ -45,6 +46,14 @@
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_n5xv5")
+}],
+"loop": true,
+"name": &"Dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_b02ic")

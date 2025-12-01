@@ -1,21 +1,24 @@
 [gd_scene load_steps=4 format=3 uid="uid://cmhq57472hx8u"]
 
 [ext_resource type="SpriteFrames" uid="uid://b3v6a20iqwd24" path="res://assets/sprites/player_sprite_frames.tres" id="1_pcnwg"]
-[ext_resource type="Script" path="res://src/scripts/Player.gd" id="1_qpdjg"]
+[ext_resource type="Script" uid="uid://qwn43vf8mkef" path="res://src/scripts/Player.gd" id="1_qpdjg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3ds7"]
 radius = 9.0
 height = 44.0
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_qpdjg")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_q3ds7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_pcnwg")
-animation = &"Right"
+animation = &"Dead"
 autoplay = "Down"
-frame_progress = 0.508227
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
-shape = SubResource("CapsuleShape2D_q3ds7")
+[connection signal="area_entered" from="Area2D" to="." method="_on_collide"]

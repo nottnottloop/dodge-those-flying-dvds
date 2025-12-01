@@ -9,5 +9,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position += velocity * delta
-	position = position.clamp(Vector2.ZERO, screen_size)
+	#position += velocity * delta
+	#position = position.clamp(Vector2.ZERO, screen_size)
+	
+	move_and_collide(velocity * delta)
